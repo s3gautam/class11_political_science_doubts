@@ -177,7 +177,7 @@ if st.button("Generate Answer"):
 
         if marks == "Not Specified":
 
-            answer_instruction = """
+answer_instruction = """
 Give a complete and concise answer.
 
 Return only the answer.
@@ -191,9 +191,9 @@ Do not write:
 - Any extra commentary
 """
 
-        else:
+else:
 
-            answer_instruction = f"""
+answer_instruction = f"""
 The answer must be suitable for a {marks}-mark examination question.
 
 Length guide:
