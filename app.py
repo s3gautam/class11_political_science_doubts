@@ -12,8 +12,7 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 VECTOR_DB_PATH = "vectorstore"
 
 # Replace with your Gemini API key
-GOOGLE_API_KEY = "GOOGLE_GEMINI_KEY"
-
+GOOGLE_API_KEY = st.secrets["GOOGLE_API_KEY"]
 os.environ["GOOGLE_API_KEY"] = GOOGLE_API_KEY
 
 
