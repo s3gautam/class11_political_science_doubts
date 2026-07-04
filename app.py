@@ -226,12 +226,12 @@ Do not write:
 Answer ONLY in Punjabi (Gurmukhi script).
 Do not mix English and Punjabi.
 """
-else:
-    language_instruction = """
+        else:
+            language_instruction = """
 Answer ONLY in English.
 """
 
-prompt = f"""        
+        prompt = f"""        
 You are a Punjab Board Political Science teacher.
 
 Use ONLY the textbook context provided below.
@@ -253,19 +253,19 @@ Question:
 {question}
 """
 
-response = llm.invoke(prompt)
+        response = llm.invoke(prompt)
 
-answer = extract_answer(response)
+        answer = extract_answer(response)
 
-st.text_area(
-    "Answer",
-    value=answer,
-    height=300,
-    disabled=True
-)
+        st.text_area(
+            "Answer",
+            value=answer,
+            height=300,
+            disabled=True
+        )
 
-st.text_input(
-    "Page Number",
-    value=str(page_no),
-    disabled=True
-)
+        st.text_input(
+            "Page Number",
+            value=str(page_no),
+            disabled=True
+        )
