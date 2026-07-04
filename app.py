@@ -68,6 +68,29 @@ def extract_answer(response):
         return f"Error extracting response: {e}"
 
 
+def translate_question_to_english(question, llm_instance):
+    if not question or not str(question).strip():
+        return ""
+
+    try:
+        translation_prompt = f"""
+Translate the following question to English.
+If it is already in English, return it unchanged.
+Return only the translated question and nothing else.
+
+Question:
+{question}
+"""
+
+        response = llm_instance.invoke(translation_prompt)
+        translated = extract_answer(response)
+
+        return translated.strip() or str(question).strip()
+
+    except Exception:
+        return str(question).strip()
+
+
 # ==================================
 # LOAD EMBEDDINGS
 # ==================================
@@ -156,8 +179,10 @@ if st.button("Generate Answer"):
 
     with st.spinner("Generating answer..."):
 
+        english_question = translate_question_to_english(question, llm)
+
         docs = db.similarity_search(
-            question,
+            english_question or question,
             k=4
         )
 
