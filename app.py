@@ -176,8 +176,7 @@ if st.button("Generate Answer"):
         )
 
         if marks == "Not Specified":
-
-answer_instruction = """
+            answer_instruction = """
 Give a complete and concise answer.
 
 Return only the answer.
@@ -190,10 +189,8 @@ Do not write:
 - References:
 - Any extra commentary
 """
-
-else:
-
-answer_instruction = f"""
+        else:
+            answer_instruction = f"""
 The answer must be suitable for a {marks}-mark examination question.
 
 Length guide:
@@ -223,8 +220,9 @@ Do not write:
 - References:
 - Any extra commentary
 """
-if language == "Punjabi":
-    language_instruction = """
+
+        if language == "Punjabi":
+            language_instruction = """
 Answer ONLY in Punjabi (Gurmukhi script).
 Do not mix English and Punjabi.
 """
