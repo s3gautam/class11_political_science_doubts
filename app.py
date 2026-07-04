@@ -116,11 +116,11 @@ llm = load_llm()
 # ==================================
 
 st.set_page_config(
-    page_title="NCERT Political Science QA",
+    page_title="Punjab Board Class 11 Political Science QA",
     layout="centered"
 )
 
-st.title("NCERT Political Science Q&A")
+st.title("Punjab Board Class 11 Political Science Q&A")
 
 question = st.text_input(
     "Question"
@@ -137,7 +137,13 @@ marks = st.selectbox(
         "5"
     ]
 )
-
+language = st.selectbox(
+    "Language",
+    [
+        "English",
+        "Punjabi"
+    ]
+)
 # ==================================
 # GENERATE
 # ==================================
@@ -217,9 +223,18 @@ Do not write:
 - References:
 - Any extra commentary
 """
+if language == "Punjabi":
+    language_instruction = """
+Answer ONLY in Punjabi (Gurmukhi script).
+Do not mix English and Punjabi.
+"""
+else:
+    language_instruction = """
+Answer ONLY in English.
+"""
 
-        prompt = f"""
-You are an NCERT Political Science teacher.
+prompt = f"""        
+You are a Punjab Board Political Science teacher.
 
 Use ONLY the textbook context provided below.
 
@@ -229,6 +244,7 @@ Rules:
 - Write in simple exam-friendly language.
 - If the answer is unavailable, respond exactly:
 I could not find the answer in the textbook.
+{language_instruction}
 
 {answer_instruction}
 
@@ -239,19 +255,19 @@ Question:
 {question}
 """
 
-        response = llm.invoke(prompt)
+response = llm.invoke(prompt)
 
-        answer = extract_answer(response)
+answer = extract_answer(response)
 
-        st.text_area(
-            "Answer",
-            value=answer,
-            height=300,
-            disabled=True
-        )
+st.text_area(
+    "Answer",
+    value=answer,
+    height=300,
+    disabled=True
+)
 
-        st.text_input(
-            "Page Number",
-            value=str(page_no),
-            disabled=True
-        )
+st.text_input(
+    "Page Number",
+    value=str(page_no),
+    disabled=True
+)
