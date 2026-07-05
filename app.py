@@ -3,7 +3,7 @@ import streamlit as st
 
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
-from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_groq import ChatGroq
 
 # ==================================
 # CONFIG
@@ -11,9 +11,10 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 
 VECTOR_DB_PATH = "vectorstore"
 
-# Replace with your Gemini API key
-GOOGLE_API_KEY = st.secrets["GOOGLE_API_KEY"]
-os.environ["GOOGLE_API_KEY"] = GOOGLE_API_KEY
+# Replace with your Groq API key
+GROQ_API_KEY = st.secrets.get("GROQ_API_KEY", "")
+if GROQ_API_KEY:
+    os.environ["GROQ_API_KEY"] = GROQ_API_KEY
 
 
 # ==================================
@@ -125,9 +126,10 @@ def load_vectorstore():
 @st.cache_resource
 def load_llm():
 
-    return ChatGoogleGenerativeAI(
-        model="gemini-2.5-flash",
-        temperature=0.2
+    return ChatGroq(
+        model="llama-3.1-8b-instant",
+        temperature=0.2,
+        api_key=GROQ_API_KEY or None
     )
 
 
